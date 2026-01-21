@@ -51,9 +51,6 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
           <Send size={20} />
         </button>
       </form>
-      <div className="mt-2 text-center">
-        <span className="text-xs text-gray-500">Press Enter to send</span>
-      </div>
     </div>
   )
 }

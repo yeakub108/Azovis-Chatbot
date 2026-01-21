@@ -1,5 +1,3 @@
-import { Trash2 } from 'lucide-react'
-
 interface ChatHeaderProps {
   onClear: () => void
 }
@@ -23,13 +21,6 @@ export default function ChatHeader({ onClear }: ChatHeaderProps) {
           </span>
         </div>
       </div>
-      <button
-        onClick={onClear}
-        className="w-9 h-9 border-none bg-gray-100 rounded-lg cursor-pointer flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-all active:scale-95"
-        title="Clear conversation"
-      >
-        <Trash2 size={20} />
-      </button>
     </div>
   )
 }

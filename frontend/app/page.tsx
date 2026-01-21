@@ -16,7 +16,7 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
-      content: "Hello! I'm the Azovis Project Assistant. I can help you with questions about Azovis features, setup, API usage, and troubleshooting. What would you like to know?",
+      content: "Hi! I'm your Azovis Assistant. How can I help you today?",
       type: 'bot',
       timestamp: new Date(),
     },
@@ -168,7 +168,7 @@ export default function Home() {
         setMessages([
           {
             id: 'welcome',
-            content: "Hello! I'm the Azovis Project Assistant. I can help you with questions about Azovis features, setup, API usage, and troubleshooting. What would you like to know?",
+            content: "Hi! I'm your Azovis Assistant. How can I help you today?",
             type: 'bot',
             timestamp: new Date(),
           },

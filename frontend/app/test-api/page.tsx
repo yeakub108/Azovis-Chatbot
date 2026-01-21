@@ -16,7 +16,7 @@ export default function TestAPIPage() {
     setError("");
     setTestResult(null);
 
-    const url = "https://backend-azovis-chatbot.vercel.app/health";
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/health`;
     console.log("Testing backend at:", url);
 
     try {
@@ -33,7 +33,7 @@ export default function TestAPIPage() {
     setError("");
     setTestResult(null);
 
-    const url = "https://backend-azovis-chatbot.vercel.app/api/chat";
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/chat`;
     console.log("Testing chat API at:", url);
 
     try {
