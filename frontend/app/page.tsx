@@ -193,7 +193,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full max-w-[500px] h-[700px] sm:h-[750px] bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden relative">
+      <div className="w-full max-w-[500px] h-[700px] sm:h-[750px] bg-white rounded-2xl flex flex-col overflow-hidden relative" style={{ boxShadow: '0 0 25px rgba(0, 0, 0, 0.15)' }}>
         <ChatHeader onClear={handleClearConversation} />
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 flex flex-col gap-4 scroll-smooth scrollbar-thin">
