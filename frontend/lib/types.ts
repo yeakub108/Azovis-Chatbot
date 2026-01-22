@@ -3,6 +3,7 @@ export interface Message {
   content: string
   type: 'user' | 'bot'
   timestamp: Date
+  relatedQuestions?: string[]
 }
 
 export interface ChatResponse {
@@ -10,6 +11,8 @@ export interface ChatResponse {
   data?: {
     message: string
     sessionId: string
+    tokensUsed?: number
+    relatedQuestions?: string[]
   }
   error?: {
     type: string

@@ -21,7 +21,7 @@ class ChatbotService {
 
       logger.info('Sending request to OpenAI', { sessionId, messageLength: message.length });
 
-      // Call OpenAI API
+      // Call OpenAI API for main response
       const completion = await openai.chat.completions.create({
         model: chatConfig.model,
         messages: messages,
@@ -35,6 +35,9 @@ class ChatbotService {
       // Add assistant response to history
       conversationHistory.addMessage(sessionId, 'assistant', assistantMessage);
 
+      // Generate related questions
+      const relatedQuestions = await this.generateRelatedQuestions(message, assistantMessage);
+
       logger.info('Received response from OpenAI', {
         sessionId,
         tokensUsed: completion.usage?.total_tokens
@@ -46,6 +49,7 @@ class ChatbotService {
         sessionId: sessionId,
         model: chatConfig.model,
         tokensUsed: completion.usage?.total_tokens,
+        relatedQuestions: relatedQuestions,
       };
 
     } catch (error) {
@@ -56,6 +60,39 @@ class ChatbotService {
         error: this.handleError(error),
         sessionId: sessionId,
       };
+    }
+  }
+
+  /**
+   * Generate related questions based on user query and AI response
+   */
+  async generateRelatedQuestions(userQuery, aiResponse) {
+    try {
+      const prompt = [
+        {
+          role: 'system',
+          content: 'You are a helpful assistant that generates 3 relevant follow-up questions based on the user\'s question and the AI\'s response. Return ONLY a JSON array of 3 short, clear questions. No explanation, just the JSON array.'
+        },
+        {
+          role: 'user',
+          content: `User Question: "${userQuery}"\n\nAI Response: "${aiResponse.substring(0, 500)}"\n\nGenerate 3 relevant follow-up questions the user might want to ask. Return ONLY a JSON array of question strings.`
+        }
+      ];
+
+      const completion = await openai.chat.completions.create({
+        model: chatConfig.model,
+        messages: prompt,
+        max_tokens: 200,
+        temperature: 0.7,
+      });
+
+      const response = completion.choices[0]?.message?.content || '[]';
+      const questions = JSON.parse(response);
+
+      return Array.isArray(questions) ? questions.slice(0, 3) : [];
+    } catch (error) {
+      logger.error('Error generating related questions', error);
+      return [];
     }
   }
 

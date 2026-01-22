@@ -39,6 +39,7 @@ class ChatController {
             message: result.message,
             sessionId: result.sessionId,
             tokensUsed: result.tokensUsed,
+            relatedQuestions: result.relatedQuestions || [],
           },
         });
       } else {
